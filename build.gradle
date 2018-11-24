@@ -52,6 +52,9 @@ dependencies {
 	testImplementation ("org.junit.platform:junit-platform-launcher:${JUNIT5_PLATFORM_VERSION}")
 	testImplementation ('org.assertj:assertj-core:3.10.0')
 	testImplementation ('org.mockito:mockito-junit-jupiter:2.17.0')
+
+	testCompile ('com.tngtech.archunit:archunit-junit5-api:0.9.3')
+	testRuntime ('com.tngtech.archunit:archunit-junit5-engine:0.9.3')
 }
 
 dependencyManagement {
