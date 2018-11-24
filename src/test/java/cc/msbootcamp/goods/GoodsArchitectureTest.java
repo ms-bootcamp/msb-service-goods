@@ -8,6 +8,7 @@ import com.tngtech.archunit.lang.ArchRule;
 import org.junit.jupiter.api.Test;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 
 class GoodsArchitectureTest {
@@ -17,6 +18,13 @@ class GoodsArchitectureTest {
     void should_repository_accessed_by_service() {
         classes().that().haveNameMatching(".*Repository")
                 .should().onlyBeAccessed().byClassesThat().haveNameMatching(".*Service")
+                .check(importedClasses);
+    }
+
+    @Test
+    void should_not_repository_dependent_on_service() {
+        noClasses().that().resideInAnyPackage("..domain..")
+                .should().dependOnClassesThat().resideInAnyPackage("..service..")
                 .check(importedClasses);
     }
 
