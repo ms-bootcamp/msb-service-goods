@@ -31,7 +31,21 @@ class GoodsArchitectureTest {
     @Test
     void should_service_accessed_by_service_and_controller() {
         classes().that().resideInAPackage("..service..")
-                .should().onlyBeAccessed().byAnyPackage("..controller..", "..service..")
+                .should().onlyHaveDependentClassesThat().resideInAnyPackage("..controller..", "..service..")
+                .check(importedClasses);
+    }
+
+    @Test
+    void should_service_reside_in_service_package() {
+        classes().that().haveNameMatching(".*Service")
+                .should().resideInAnyPackage("..service..")
+                .check(importedClasses);
+    }
+
+    @Test
+    void should_controller_reside_in_controller_package() {
+        classes().that().haveNameMatching(".*Controller")
+                .should().resideInAnyPackage("..controller..")
                 .check(importedClasses);
     }
 }
